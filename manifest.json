@@ -37,11 +37,11 @@
                 "name": "path",
                 "type": "path",
                 "ask": {
-                    "en": "Choose a path for Cockpit /emby is accepted",
-                    "fr": "Choisissez un chemin pour Cockpit /emby est accepté"
+                    "en": "Choose a path for Cockpit /cockpit is accepted",
+                    "fr": "Choisissez un chemin pour Cockpit /cockpit est accepté"
                 },
-                "example": "/emby",
-                "default": "/emby"
+                "example": "/cockpit",
+                "default": "/cockpit"
             },
             
             {
