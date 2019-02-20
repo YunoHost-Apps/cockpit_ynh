@@ -1,6 +1,8 @@
 # Cockpit app for YunoHost
 Cockpit Server
 
+# NOT WORK IS IN DEV
+
 - [Yunohost project](https://yunohost.org)
 - [Cockpit website](https://cockpit-project.org/)
 
