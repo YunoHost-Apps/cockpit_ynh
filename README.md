@@ -4,7 +4,7 @@ Cockpit Server
 - [Yunohost project](https://yunohost.org)
 - [Cockpit website](https://cockpit-project.org/)
 
-![](https://ia800109.us.archive.org/21/items/github.com-cockpit-project-cockpit_-_2018-02-23_15-25-16/cover.jpg)
+![](https://cockpit-project.org/images/site/cockpit-logo.svg)
 
 
 [![Install Cockpit with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=cockpit)
