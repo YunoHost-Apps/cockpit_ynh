@@ -23,7 +23,7 @@ final_path=$(ynh_app_setting_get $app final_path)
 # STANDARD REMOVE
 #=================================================
 
-ynh_package_remove emby-server
+ynh_package_remove cockpit cockpit-pcp
 
 #=================================================
 # REMOVE DEPENDENCIES
