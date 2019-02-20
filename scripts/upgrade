@@ -10,22 +10,24 @@ final_path=/opt/yunohost/$app
 # Source YunoHost helpers
 source /usr/share/yunohost/helpers
 
-# Stop emby-server service
-systemctl stop emby-server
-
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-
-ynh_app_setting_set $app final_path $final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
+# Stop cockpit service
+systemctl stop cockpit
 
 #==============================================
-# INSTALL PLEX
+# INSTALL DEPS
 #==============================================
 
-dpkg --install $final_path/emby-server-deb*
+## Install the backports repo for debian
+echo 'deb http://deb.debian.org/debian stretch-backports main' > \
+ /etc/apt/sources.list.d/$app.list
+
+ynh_package_update
+
+#==============================================
+# INSTALL COCKPIT
+#==============================================
+
+ynh_package_install cockpit
 
 #=================================================
 # NGINX CONFIGURATION
@@ -51,6 +53,8 @@ dpkg --install $final_path/emby-server-deb*
 #  ynh_app_setting_set "$app" unprotected_uris "/"
 #fi
 
-# Start emby-server service
-systemctl start emby-server
+rm /etc/apt/sources.list.d/$app.list
+
+# Start cockpit service
+systemctl start cockpit
 
