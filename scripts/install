@@ -75,6 +75,7 @@ echo 'deb http://deb.debian.org/debian stretch-backports main' > \
  /etc/apt/sources.list.d/$app.list
 
 ynh_package_update
+ynh_install_app_dependencies cockpit
 
 #=================================================
 # FIND AND OPEN A PORT
@@ -98,12 +99,6 @@ ynh_app_setting_set $app port $port
 #ynh_app_setting_set $app final_path $final_path
 # Download, check integrity, uncompress and patch the source from app.src
 #ynh_setup_source "$final_path"
-
-#==============================================
-# INSTALL COCKPIT
-#==============================================
-
-ynh_package_install cockpit
 
 #=================================================
 # NGINX CONFIGURATION
@@ -163,5 +158,5 @@ if [ $is_public -eq 1 ]; then
 fi
 
 # Reload services
-#systemctl enable --now cockpit
+systemctl enable --now cockpit
 systemctl reload nginx 
