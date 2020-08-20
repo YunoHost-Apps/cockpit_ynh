@@ -71,7 +71,7 @@ ynh_app_setting_set $app is_public $is_public
 #==============================================
 
 ## Install the backports repo for debian
-echo 'deb http://deb.debian.org/debian stretch-backports main' > \
+echo 'deb http://deb.debian.org/debian buster-backports main' > \
  /etc/apt/sources.list.d/$app.list
 
 ynh_package_update
@@ -117,10 +117,7 @@ ynh_add_nginx_config
 #=================================================
 # MODIFY A CONFIG FILE
 #=================================================
-#cp -a ../conf/onlyoffice-documentserver.conf /etc/onlyoffice/documentserver/nginx/onlyoffice-documentserver.conf
-#ynh_replace_string "__NEXTCLOUDDOMAIN__" "$nextcloud_domain" "/etc/loolwsd/loolwsd.xml"
-#ynh_replace_string "__PASSWORD__" "$password" "/etc/loolwsd/loolwsd.xml"
-
+# no need to touch the onlyoffice data
 #=================================================
 # STORE THE CONFIG FILE CHECKSUM
 #=================================================
