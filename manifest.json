@@ -8,7 +8,7 @@
     },
     "version": "232~ynh1",
     "url": "https://cockpit-project.org/",
-    "license": "free",
+    "license": "LGPL-2.1-only",
     "maintainer": {
         "name": "liberodark",
         "email": "liberodark@gmail.com"
