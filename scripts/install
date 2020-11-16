@@ -83,8 +83,8 @@ ynh_add_nginx_config
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Reload services
-ynh_systemd_action --service_name=$app --action="start"
-ynh_systemd_action --service_name=$app --action="enable"
+systemctl start $app
+systemctl enable --now $app
 
 #=================================================
 # SETUP SSOWAT
