@@ -3,8 +3,8 @@
     "id": "cockpit",
     "packaging_format": 1,
     "description": {
-        "en": "Cockpit package for YunoHost.",
-        "fr": "Cockpit pour YunoHost."
+        "en": "Sysadmin login session in a web browser.",
+        "fr": "Session de connexion sysadmin dans un navigateur Web."
     },
     "version": "232~ynh1",
     "url": "https://cockpit-project.org/",
@@ -19,7 +19,6 @@
     "multi_instance": false,
     "services": [
         "nginx",
-        "php7.0-fpm",
         "mysql"
     ],
     "arguments": {
