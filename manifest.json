@@ -6,7 +6,7 @@
         "en": "Cockpit package for YunoHost.",
         "fr": "Cockpit pour YunoHost."
     },
-    "version": "187",
+    "version": "232~ynh1",
     "url": "https://cockpit-project.org/",
     "license": "free",
     "maintainer": {
@@ -14,12 +14,12 @@
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 2.7.2"
+        "yunohost": ">= 4.0.0"
     },
     "multi_instance": false,
     "services": [
         "nginx",
-        "php5-fpm",
+        "php7.0-fpm",
         "mysql"
     ],
     "arguments": {
@@ -32,7 +32,6 @@
                 },
                 "example": "example.com"
             },
-
             {
                 "name": "path",
                 "type": "path",
@@ -43,15 +42,14 @@
                 "example": "/cockpit",
                 "default": "/cockpit"
             },
-            
             {
                 "name": "is_public",
                 "type": "boolean",
                 "ask": {
-                    "en": "Is it a public site ?",
+                    "en": "Is it a public site?",
                     "fr": "Est-ce un site public ?"
                 },
-                "default": "true"
+                "default": true
             }
         ]
     }
