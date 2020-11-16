@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-#                     YUNOHOST 2.7 FORTHCOMING HELPERS
+#                     YUNOHOST 2.7 FORTHCOMING HELPERS changed to buster version
 # =============================================================================
 
 # Create a dedicated nginx config
@@ -57,23 +57,23 @@ ynh_add_fpm_config () {
 
 	if [ -e "../conf/php-fpm.ini" ]
 	then
-		finalphpini="/etc/php5/fpm/conf.d/20-$app.ini"
+		finalphpini="/etc/php7.3/fpm/conf.d/20-$app.ini"
 		ynh_backup_if_checksum_is_different "$finalphpini"
 		sudo cp ../conf/php-fpm.ini "$finalphpini"
 		sudo chown root: "$finalphpini"
 		ynh_store_file_checksum "$finalphpini"
 	fi
 
-	sudo systemctl reload php5-fpm
+	sudo systemctl reload php7.3-fpm
 }
 
 # Remove the dedicated php-fpm config
 #
 # usage: ynh_remove_fpm_config
 ynh_remove_fpm_config () {
-	ynh_secure_remove "/etc/php5/fpm/pool.d/$app.conf"
-	ynh_secure_remove "/etc/php5/fpm/conf.d/20-$app.ini" 2>&1
-	sudo systemctl reload php5-fpm
+	ynh_secure_remove "/etc/php7.3/fpm/pool.d/$app.conf"
+	ynh_secure_remove "/etc/php7.3/fpm/conf.d/20-$app.ini" 2>&1
+	sudo systemctl reload php7.3-fpm
 }
 
 # Create a dedicated systemd config
