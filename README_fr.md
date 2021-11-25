@@ -11,11 +11,11 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Vue d'ensemble
 
-Session de connexion sysadmin dans un navigateur Web.
+Cockpit is a web-based graphical interface for servers, intended for everyone.
 
-**Version incluse :** 232~ynh1
+**Version incluse :** 257~ynh1
 
-
+**Démo :** https://demo.example.com
 
 ## Captures d'écran
 
@@ -23,6 +23,9 @@ Session de connexion sysadmin dans un navigateur Web.
 
 ## Documentations et ressources
 
+* Site officiel de l'app : https://cockpit-project.org/
+* Documentation officielle de l'admin : https://cockpit-project.org/documentation.html
+* Dépôt de code officiel de l'app : https://some.forge.com/example/example
 * Documentation YunoHost pour cette app : https://yunohost.org/app_cockpit
 * Signaler un bug : https://github.com/YunoHost-Apps/cockpit_ynh/issues
 
