@@ -3,29 +3,34 @@
     "id": "cockpit",
     "packaging_format": 1,
     "description": {
-        "en": "Sysadmin login session in a web browser.",
-        "fr": "Session de connexion sysadmin dans un navigateur Web."
+        "en": "Sysadmin login session in a web browser",
+        "fr": "Session de connexion sysadmin dans un navigateur Web"
     },
-    "version": "232~ynh1",
+    "version": "257~ynh1",
     "url": "https://cockpit-project.org/",
+    "upstream": {
+        "license": "LGPL-2.1-only",
+        "website": "https://cockpit-project.org/",
+        "demo": "https://demo.example.com",
+        "admindoc": "https://cockpit-project.org/documentation.html",
+        "code": "https://some.forge.com/example/example"
+    },
     "license": "LGPL-2.1-only",
     "maintainer": {
         "name": "liberodark",
         "email": "liberodark@gmail.com"
     },
     "requirements": {
-        "yunohost": ">= 4.2.4"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [
-        "nginx",
-        "mysql"
+        "nginx"
     ],
     "arguments": {
         "install": [{
                 "name": "domain",
-                "type": "domain",
-                "example": "example.com"
+                "type": "domain"
             },
             {
                 "name": "path",
