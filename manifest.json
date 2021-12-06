@@ -11,9 +11,7 @@
     "upstream": {
         "license": "LGPL-2.1-only",
         "website": "https://cockpit-project.org/",
-        "demo": "https://demo.example.com",
-        "admindoc": "https://cockpit-project.org/documentation.html",
-        "code": "https://some.forge.com/example/example"
+        "admindoc": "https://cockpit-project.org/documentation.html"
     },
     "license": "LGPL-2.1-only",
     "maintainer": {
@@ -35,8 +33,12 @@
             {
                 "name": "path",
                 "type": "path",
-                "example": "/cockpit",
-                "default": "/cockpit"
+                "help": {
+                    "en": "/cockpit/ and /cockpit+ are reserved and should not be used.",
+                    "fr": "/cockpit/ et /cockpit+ sont réservés et ne doivent pas être utilisés."
+                },
+                "example": "/monitor",
+                "default": "/monitor"
             },
             {
                 "name": "is_public",

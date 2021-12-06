@@ -69,6 +69,13 @@ ynh_script_progression --message="Installing dependencies..." --weight=20
 ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
+# ADD A CONFIGURATION
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+ynh_add_config --template="../conf/cockpite.conf" --destination="/etc/cockpit/cockpit.conf"
+
+#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --weight=2
@@ -82,8 +89,7 @@ ynh_add_nginx_config
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Reload services
-systemctl start $app
-systemctl enable $app --quiet
+systemctl enable cockpit.socket --quiet
 
 #=================================================
 # SETUP SSOWAT
