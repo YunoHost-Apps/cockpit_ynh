@@ -90,13 +90,15 @@ ynh_script_progression --message="Starting a systemd service..." --weight=2
 
 # Reload services
 #systemctl enable cockpit.socket --quiet
-ynh_systemd_action --service_name=cockpit.socket --action=start
+#ynh_systemd_action --service_name=cockpit.socket --action=start
 
 #=================================================
 # ADVERTISE SERVICE IN ADMIN PANEL
 #=================================================
 
 yunohost service add cockpit.socket --description="Monitor" #--log="/var/log/syslog"
+
+ynh_systemd_action --service_name=cockpit.socket --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # SETUP SSOWAT
