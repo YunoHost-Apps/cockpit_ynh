@@ -17,6 +17,8 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Cockpit is a web-based graphical interface for servers, intended for everyone.
 
+
+
 **Shipped version:** 257~ynh1
 
 
@@ -29,6 +31,7 @@ Cockpit is a web-based graphical interface for servers, intended for everyone.
 
 * Official app website: https://cockpit-project.org/
 * Official admin documentation: https://cockpit-project.org/documentation.html
+* Upstream app code repository: https://github.com/cockpit-project/cockpit
 * YunoHost documentation for this app: https://yunohost.org/app_cockpit
 * Report a bug: https://github.com/YunoHost-Apps/cockpit_ynh/issues
 
