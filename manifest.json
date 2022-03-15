@@ -11,7 +11,8 @@
     "upstream": {
         "license": "LGPL-2.1-only",
         "website": "https://cockpit-project.org/",
-        "admindoc": "https://cockpit-project.org/documentation.html"
+        "admindoc": "https://cockpit-project.org/documentation.html",
+        "code": "https://github.com/cockpit-project/cockpit"
     },
     "license": "LGPL-2.1-only",
     "maintainer": {
@@ -26,7 +27,8 @@
         "nginx"
     ],
     "arguments": {
-        "install": [{
+        "install": [
+        	{
                 "name": "domain",
                 "type": "domain"
             },

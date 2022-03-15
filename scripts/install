@@ -19,7 +19,6 @@ ynh_abort_if_errors
 # RETRIEVE ARGUMENTS FROM THE MANIFEST
 #=================================================
 
-# Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 
@@ -46,10 +45,10 @@ ynh_app_setting_set --app=$app --key=path --value=$path_url
 #=================================================
 # FIND AND OPEN A PORT
 #=================================================
-ynh_script_progression --message="Configuring firewall..." --weight=2
+ynh_script_progression --message="Finding an available port..." --weight=2
 
 # Find an available port
-port=$(ynh_find_port --port=9090)
+port=$(ynh_find_port --port=8095)
 ynh_app_setting_set --app=$app --key=port --value=$port
 
 #=================================================
@@ -60,13 +59,6 @@ ynh_script_progression --message="Installing dependencies..." --weight=20
 ynh_exec_warn_less ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
-# ADD A CONFIGURATION
-#=================================================
-ynh_script_progression --message="Adding a configuration file..." --weight=1
-
-ynh_add_config --template="../conf/cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
-
-#=================================================
 # NGINX CONFIGURATION
 #=================================================
 ynh_script_progression --message="Configuring NGINX web server..." --weight=2
@@ -75,20 +67,37 @@ ynh_script_progression --message="Configuring NGINX web server..." --weight=2
 ynh_add_nginx_config
 
 #=================================================
+# SPECIFIC SETUP
+#=================================================
+# ADD A CONFIGURATION
+#=================================================
+ynh_script_progression --message="Adding a configuration file..." --weight=1
+
+ynh_replace_string --match_string="ListenStream=.*" --replace_string="ListenStream=$port" --target_file="/lib/systemd/system/cockpit.socket"
+systemctl daemon-reload
+systemctl restart $app.socket
+
+ynh_add_config --template="../conf/cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+
+chmod 440 "/etc/cockpit/cockpit.conf"
+chown root:$app-ws "/etc/cockpit/cockpit.conf"
+
+#=================================================
+# GENERIC FINALIZATION
+#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 
-#yunohost service add cockpit.socket --description="Monitor" --log="/var/log/$app/$app.log"
+yunohost service add $app
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=2
 
-#ynh_systemd_action --service_name=cockpit.socket --action="start" --log_path="/var/log/$app/$app.log"
-systemctl enable cockpit.socket
-systemctl start cockpit.socket
+ynh_systemd_action --service_name=$app --action="restart" --log_path="systemd" --line_match="Started"
+
 #=================================================
 # RELOAD NGINX
 #=================================================
