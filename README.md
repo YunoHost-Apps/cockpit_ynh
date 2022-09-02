@@ -21,6 +21,7 @@ Cockpit is a web-based graphical interface for servers, intended for everyone.
 
 **Shipped version:** 188~ynh2
 
+
 ## Screenshots
 
 ![Screenshot of Cockpit](./doc/screenshots/screenshot-storage.png)
