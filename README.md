@@ -18,8 +18,8 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 Cockpit is a web-based graphical interface for servers, intended for everyone.
 
 
-
 **Shipped version:** 188~ynh2
+
 
 ## Screenshots
 
