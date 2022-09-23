@@ -17,8 +17,8 @@
     },
     "license": "LGPL-2.1-only",
     "maintainer": {
-        "name": "liberodark",
-        "email": "liberodark@gmail.com"
+        "name": "",
+        "email": ""
     },
     "requirements": {
         "yunohost": ">= 4.3.0"
