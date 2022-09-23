@@ -114,6 +114,9 @@ ynh_script_progression --message="Updating a configuration file..." --weight=1
 
 ynh_add_config --template="../conf/cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
 
+chmod 440 "/etc/cockpit/cockpit.conf"
+chown root:$app-ws "/etc/cockpit/cockpit.conf"
+
 #=================================================
 # GENERIC FINALISATION
 #=================================================
