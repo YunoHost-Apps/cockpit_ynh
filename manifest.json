@@ -12,12 +12,13 @@
         "license": "LGPL-2.1-only",
         "website": "https://cockpit-project.org/",
         "admindoc": "https://cockpit-project.org/documentation.html",
-        "code": "https://github.com/cockpit-project/cockpit"
+        "code": "https://github.com/cockpit-project/cockpit",
+        "cpe": "cpe:2.3:a:agentejo:cockpit"
     },
     "license": "LGPL-2.1-only",
     "maintainer": {
-        "name": "liberodark",
-        "email": "liberodark@gmail.com"
+        "name": "",
+        "email": ""
     },
     "requirements": {
         "yunohost": ">= 4.3.0"
