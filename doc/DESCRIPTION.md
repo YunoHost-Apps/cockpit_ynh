@@ -1,1 +1,1 @@
-Cockpit is a web-based graphical interface for servers, intended for everyone.
+Cockpit is an interactive server admin interface. It is easy to use and very lightweight. Cockpit interacts directly with the operating system from a real Linux session in a browser.

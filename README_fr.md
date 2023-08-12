@@ -16,10 +16,9 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 ## Vue d’ensemble
 
-Cockpit is a web-based graphical interface for servers, intended for everyone.
+Cockpit est une interface d'administration de serveur interactive. Il est facile à utiliser et très léger. Cockpit interagit directement avec le système d'exploitation à partir d'une vraie session Linux dans un navigateur.
 
-
-**Version incluse :** 188~ynh2
+**Version incluse :** 239~ynh1
 
 ## Captures d’écran
 
