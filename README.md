@@ -18,7 +18,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 Cockpit is an interactive server admin interface. It is easy to use and very lightweight. Cockpit interacts directly with the operating system from a real Linux session in a browser.
 
-**Shipped version:** 188~ynh3
+**Shipped version:** 239~ynh1
 
 ## Screenshots
 
