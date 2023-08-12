@@ -14,6 +14,10 @@ It shall NOT be edited by hand.
 > *Ce package vous permet d’installer Cockpit rapidement et simplement sur un serveur YunoHost.
 Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
+
+## Vue d’ensemble
+
+
 ## Vue d’ensemble
 
 Cockpit est une interface d'administration de serveur interactive. Il est facile à utiliser et très léger. Cockpit interagit directement avec le système d'exploitation à partir d'une vraie session Linux dans un navigateur.
