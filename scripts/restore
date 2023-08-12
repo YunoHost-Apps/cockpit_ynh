@@ -11,13 +11,6 @@ source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# RESTORE THE NGINX CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the NGINX web server configuration..." --weight=1
-
-ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
-
-#=================================================
 # RESTORE VARIOUS FILES
 #=================================================
 ynh_script_progression --message="Restoring various files..." --weight=1
@@ -29,25 +22,24 @@ systemctl restart $app.socket
 ynh_restore_file --origin_path="/etc/cockpit/cockpit.conf"
 
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
+# RESTORE SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+# RESTORE THE PHP-FPM CONFIGURATION
+#=================================================
+ynh_script_progression --message="Restoring system configurations related to $app..." --weight=1
+
+ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 yunohost service add $app --description="Sysadmin login session in a web browser" --log="/var/log/$app/$app.log"
 
 #=================================================
-# START SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=2
-
-ynh_systemd_action --service_name=$app --action="restart" --log_path="systemd" --line_match="Started"
-
-#=================================================
 # GENERIC FINALIZATION
 #=================================================
-# RELOAD NGINX
+# RELOAD NGINX AND PHP-FPM OR THE APP SERVICE
 #=================================================
-ynh_script_progression --message="Reloading NGINX web server..." --weight=2
+ynh_script_progression --message="Reloading NGINX web server and $app's service..." --weight=1
+
+ynh_systemd_action --service_name=$app --action="restart" --log_path="systemd" --line_match="Started"
 
 ynh_systemd_action --service_name=nginx --action=reload
 
