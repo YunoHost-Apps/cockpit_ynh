@@ -5,7 +5,7 @@ name = "Cockpit"
 description.en = "Sysadmin login session in a web browser"
 description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
-version = "188~ynh3"
+version = "239~ynh1"
 
 maintainers = []
 
