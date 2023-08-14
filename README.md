@@ -5,7 +5,8 @@ It shall NOT be edited by hand.
 
 # Cockpit for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Working status](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)  
+[![Integration level](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Working status](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+
 [![Install Cockpit with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
 *[Lire ce readme en français.](./README_fr.md)*
@@ -15,11 +16,9 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 ## Overview
 
-Cockpit is a web-based graphical interface for servers, intended for everyone.
+Cockpit is an interactive server admin interface. It is easy to use and very lightweight. Cockpit interacts directly with the operating system from a real Linux session in a browser.
 
-
-**Shipped version:** 188~ynh2
-
+**Shipped version:** 239~ynh1
 
 ## Screenshots
 

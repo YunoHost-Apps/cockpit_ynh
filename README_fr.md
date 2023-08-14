@@ -5,31 +5,30 @@ It shall NOT be edited by hand.
 
 # Cockpit pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+
 [![Installer Cockpit avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Cockpit rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Cockpit rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
-Cockpit is a web-based graphical interface for servers, intended for everyone.
+Cockpit est une interface d'administration de serveur interactive. Il est facile à utiliser et très léger. Cockpit interagit directement avec le système d'exploitation à partir d'une vraie session Linux dans un navigateur.
 
+**Version incluse :** 239~ynh1
 
-**Version incluse :** 188~ynh2
+## Captures d’écran
 
-
-## Captures d'écran
-
-![Capture d'écran de Cockpit](./doc/screenshots/screenshot-storage.png)
+![Capture d’écran de Cockpit](./doc/screenshots/screenshot-storage.png)
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://cockpit-project.org/>
-* Documentation officielle de l'admin : <https://cockpit-project.org/documentation.html>
-* Dépôt de code officiel de l'app : <https://github.com/cockpit-project/cockpit>
+* Site officiel de l’app : <https://cockpit-project.org/>
+* Documentation officielle de l’admin : <https://cockpit-project.org/documentation.html>
+* Dépôt de code officiel de l’app : <https://github.com/cockpit-project/cockpit>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_cockpit>
 * Signaler un bug : <https://github.com/YunoHost-Apps/cockpit_ynh/issues>
 
@@ -45,4 +44,4 @@ ou
 sudo yunohost app upgrade cockpit -u https://github.com/YunoHost-Apps/cockpit_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
