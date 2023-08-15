@@ -13,6 +13,11 @@ source /usr/share/yunohost/helpers
 #=================================================
 # RESTORE VARIOUS FILES
 #=================================================
+ynh_script_progression --message="Fixing up permissions..." --weight=1
+
+usermod -a -G cockpit cockpit-ws
+usermod -a -G cockpit cockpit-wsinstance
+
 ynh_script_progression --message="Restoring various files..." --weight=1
 
 ynh_replace_string --match_string="ListenStream=.*" --replace_string="ListenStream=$port" --target_file="/lib/systemd/system/cockpit.socket"
