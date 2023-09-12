@@ -30,12 +30,17 @@ ynh_change_url_nginx_config
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
+ynh_script_progression --message="Fixing up permissions..." --weight=1
+
+usermod -a -G cockpit cockpit-ws
+usermod -a -G cockpit cockpit-wsinstance
+
 ynh_script_progression --message="Updating a configuration file..." --weight=1
 
 ynh_add_config --template="../conf/cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
 
 chmod 650 "/etc/cockpit/cockpit.conf"
-chown root:$app-ws "/etc/cockpit/cockpit.conf"
+chown root:$app "/etc/cockpit/cockpit.conf"
 
 #=================================================
 # GENERIC FINALISATION
