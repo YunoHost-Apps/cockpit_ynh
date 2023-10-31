@@ -29,7 +29,7 @@ Cockpit is an interactive server admin interface. It is easy to use and very lig
 * Official app website: <https://cockpit-project.org/>
 * Official admin documentation: <https://cockpit-project.org/documentation.html>
 * Upstream app code repository: <https://github.com/cockpit-project/cockpit>
-* YunoHost documentation for this app: <https://yunohost.org/app_cockpit>
+* YunoHost Store: <https://apps.yunohost.org/app/cockpit>
 * Report a bug: <https://github.com/YunoHost-Apps/cockpit_ynh/issues>
 
 ## Developer info

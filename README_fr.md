@@ -29,7 +29,7 @@ Cockpit est une interface d'administration de serveur interactive. Il est facile
 * Site officiel de l’app : <https://cockpit-project.org/>
 * Documentation officielle de l’admin : <https://cockpit-project.org/documentation.html>
 * Dépôt de code officiel de l’app : <https://github.com/cockpit-project/cockpit>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_cockpit>
+* YunoHost Store: <https://apps.yunohost.org/app/cockpit>
 * Signaler un bug : <https://github.com/YunoHost-Apps/cockpit_ynh/issues>
 
 ## Informations pour les développeurs
