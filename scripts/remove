@@ -26,7 +26,7 @@ ynh_remove_systemd_config
 
 ynh_remove_nginx_config
 
-ynh_secure_remove --file="/etc/$app"
+ynh_secure_remove --file="/etc/cockpit"
 
 #=================================================
 # END OF SCRIPT
