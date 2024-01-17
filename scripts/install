@@ -33,6 +33,7 @@ ynh_replace_string --match_string="ListenStream=.*" --replace_string="ListenStre
 systemctl daemon-reload
 systemctl restart $app.socket
 
+mkdir "/etc/cockpit/"
 ynh_add_config --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
 
 chmod 650 "/etc/cockpit/cockpit.conf"
