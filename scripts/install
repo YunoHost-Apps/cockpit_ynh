@@ -1,62 +1,54 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring NGINX web server..." --weight=2
+ynh_script_progression "Configuring NGINX web server..."
 
 # Create a dedicated NGINX config
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 #=================================================
 # SPECIFIC SETUP
 #=================================================
 # ADD A CONFIGURATION
 #=================================================
-ynh_script_progression --message="Fixing up permissions..." --weight=1
+ynh_script_progression "Fixing up permissions..."
 
 usermod -a -G cockpit cockpit-ws
 usermod -a -G cockpit cockpit-wsinstance
 
-ynh_script_progression --message="Adding a configuration file..." --weight=1
+ynh_script_progression "Adding $app's configuration..."
 
-ynh_replace_string --match_string="ListenStream=.*" --replace_string="ListenStream=$port" --target_file="/lib/systemd/system/cockpit.socket"
+ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
 systemctl daemon-reload
 systemctl restart $app.socket
 
-ynh_add_config --template="../conf/cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
 
 chmod 650 "/etc/cockpit/cockpit.conf"
 chown root:$app "/etc/cockpit/cockpit.conf"
 
 #=================================================
-# GENERIC FINALIZATION
-#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+ynh_script_progression "Integrating service in YunoHost..."
 
 yunohost service add $app --description="Sysadmin login session in a web browser" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=2
+ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="restart" --log_path="systemd" --line_match="Started"
+ynh_systemctl --service=$app --action="restart" --log_path="systemd" --wait_until="Started"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --last
+ynh_script_progression "Installation of $app completed"
