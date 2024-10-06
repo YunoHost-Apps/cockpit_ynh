@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Cockpit YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/cockpit.svg)](https://ci-apps.yunohost.org/ci/apps/cockpit/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
 
 [![Instalatu Cockpit YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
