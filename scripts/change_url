@@ -18,8 +18,6 @@ ynh_script_progression "Updating NGINX web server configuration..."
 ynh_config_change_url_nginx
 
 #=================================================
-# SPECIFIC MODIFICATIONS
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Fixing up permissions..."
@@ -39,7 +37,6 @@ chown root:$app "/etc/cockpit/cockpit.conf"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-# Start a systemd service
 ynh_systemctl --service=$app --action="start" --log_path="systemd" --wait_until="Started"
 
 #=================================================
