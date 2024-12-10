@@ -33,7 +33,7 @@ yunohost service add $app --description="Sysadmin login session in a web browser
 #=================================================
 ynh_script_progression "Reloading NGINX web server and $app's service..."
 
-ynh_systemctl --service=$app --action="restart" --log_path="systemd" --wait_until="Started"
+ynh_systemctl --service=$app --action="restart" --log_path="systemd"
 
 ynh_systemctl --service=nginx --action=reload
 

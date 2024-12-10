@@ -43,7 +43,7 @@ chown root:$app "/etc/cockpit/cockpit.conf"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="restart" --log_path="systemd" --wait_until="Started"
+ynh_systemctl --service=$app --action="restart" --log_path="systemd"
 
 #=================================================
 # END OF SCRIPT
