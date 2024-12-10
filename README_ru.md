@@ -5,7 +5,9 @@
 
 # Cockpit для YunoHost
 
-[![Уровень интеграции](https://dash.yunohost.org/integration/cockpit.svg)](https://ci-apps.yunohost.org/ci/apps/cockpit/) ![Состояние работы](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Состояние сопровождения](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+[![Уровень интеграции](https://apps.yunohost.org/badge/integration/cockpit)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
+![Состояние работы](https://apps.yunohost.org/badge/state/cockpit)
+![Состояние сопровождения](https://apps.yunohost.org/badge/maintained/cockpit)
 
 [![Установите Cockpit с YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
