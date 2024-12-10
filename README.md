@@ -5,7 +5,9 @@ It shall NOT be edited by hand.
 
 # Cockpit for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/cockpit.svg)](https://ci-apps.yunohost.org/ci/apps/cockpit/) ![Working status](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+[![Integration level](https://apps.yunohost.org/badge/integration/cockpit)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
+![Working status](https://apps.yunohost.org/badge/state/cockpit)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/cockpit)
 
 [![Install Cockpit with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
