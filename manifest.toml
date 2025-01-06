@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "cockpit"
@@ -49,7 +51,7 @@ ram.runtime = "50M"
 
     [resources.ports]
     main.default = 9090
+    main.fixed = true
 
     [resources.apt]
-    packages = "cockpit"
-    
+    packages = ["cockpit", "cockpit-bridge"]
