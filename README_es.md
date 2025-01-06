@@ -5,7 +5,9 @@ No se debe editar a mano.
 
 # Cockpit para Yunohost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/cockpit.svg)](https://dash.yunohost.org/appci/app/cockpit) ![Estado funcional](https://ci-apps.yunohost.org/ci/badges/cockpit.status.svg) ![Estado En Mantención](https://ci-apps.yunohost.org/ci/badges/cockpit.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/cockpit)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
+![Estado funcional](https://apps.yunohost.org/badge/state/cockpit)
+![Estado En Mantención](https://apps.yunohost.org/badge/maintained/cockpit)
 
 [![Instalar Cockpit con Yunhost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=cockpit)
 
@@ -34,7 +36,7 @@ Cockpit is an interactive server admin interface. It is easy to use and very lig
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/cockpit_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/cockpit_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
