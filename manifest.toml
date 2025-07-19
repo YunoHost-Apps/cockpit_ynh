@@ -4,7 +4,7 @@ packaging_format = 2
 
 id = "cockpit"
 name = "Cockpit"
-description.en = "Sysadmin login session in a web browser"
+description.en = "Sysadmin login session in a Web browser"
 description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
 version = "337~ynh1"
