@@ -8,16 +8,19 @@ It shall NOT be edited by hand.
   Cockpit, packaged for YunoHost
 </h1>
 
-[![Integration level](https://apps.yunohost.org/badge/integration/cockpit)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
-![Working status](https://apps.yunohost.org/badge/state/cockpit)
-![Maintenance status](https://apps.yunohost.org/badge/maintained/cockpit)
+Sysadmin login session in a Web browser
+
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://cockpit-project.org/)
-[![Version: 337~ynh1](https://img.shields.io/badge/Version-337~ynh1-rgba(0,150,0,1)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
+[![Version: 337~ynh1](https://img.shields.io/badge/Version-337~ynh1-rgb(18,138,11)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
 
 <div align="center">
 <a href="https://apps.yunohost.org/app/cockpit"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_more_info_on_the_appstore.svg"/></a>
 <a href="https://github.com/YunoHost-Apps/cockpit_ynh/issues"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_report_an_issue.svg"/></a>
 </div>
+
+
+## Screenshots
+![Screenshot of Cockpit](./doc/screenshots/screenshot-storage.png)
 
 ## 📦 Developer info
 
