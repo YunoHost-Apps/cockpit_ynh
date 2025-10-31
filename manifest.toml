@@ -4,7 +4,7 @@ packaging_format = 2
 
 id = "cockpit"
 name = "Cockpit"
-description.en = "Sysadmin login session in a web browser"
+description.en = "Sysadmin login session in a Web browser"
 description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
 version = "337~ynh1"
@@ -18,11 +18,14 @@ admindoc = "https://cockpit-project.org/documentation.html"
 code = "https://github.com/cockpit-project/cockpit"
 
 [integration]
-yunohost = ">= 11.2"
+yunohost = ">= 12.0.9"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
+
 ldap = false
 sso = false
+
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"

@@ -8,8 +8,9 @@ It shall NOT be edited by hand.
   Cockpit, packaged for YunoHost
 </h1>
 
-Sysadmin login session in a web browser
-
+[![Integration level](https://apps.yunohost.org/badge/integration/cockpit)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
+![Working status](https://apps.yunohost.org/badge/state/cockpit)
+![Maintenance status](https://apps.yunohost.org/badge/maintained/cockpit)
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://cockpit-project.org/)
 [![Version: 337~ynh1](https://img.shields.io/badge/Version-337~ynh1-rgba(0,150,0,1)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/cockpit/)
 
