@@ -5,10 +5,14 @@ source /usr/share/yunohost/helpers
 ynh_print_info "Declaring files to be backed up..."
 
 #=================================================
-# BACKUP THE NGINX CONFIGURATION
+# BACKUP SYSTEM CONFIGURATION
 #=================================================
 
 ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
+
+#=================================================
+# BACKUP VARIOUS FILES
+#=================================================
 
 ynh_backup "/etc/cockpit/cockpit.conf"
 

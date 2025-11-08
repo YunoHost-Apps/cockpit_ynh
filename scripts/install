@@ -3,44 +3,39 @@
 source /usr/share/yunohost/helpers
 
 #=================================================
-# NGINX CONFIGURATION
+# APP INITIAL CONFIGURATION
 #=================================================
-ynh_script_progression "Configuring NGINX web server..."
+ynh_script_progression "Adding $app's configuration files..."
 
-ynh_config_add_nginx
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
+then
+	usermod -a -G cockpit cockpit-ws
+	usermod -a -G cockpit cockpit-wsinstance
 
-#=================================================
-# ADD A CONFIGURATION
-#=================================================
-ynh_script_progression "Fixing up permissions..."
-
-usermod -a -G cockpit cockpit-ws
-usermod -a -G cockpit cockpit-wsinstance
-
-ynh_script_progression "Adding $app's configuration..."
-
-ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
-systemctl daemon-reload
-systemctl restart $app.socket
+	ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
+	systemctl daemon-reload
+	systemctl restart $app.socket
+fi
 
 ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
 
-chmod 650 "/etc/cockpit/cockpit.conf"
-chown root:$app "/etc/cockpit/cockpit.conf"
+chmod 640 "/etc/cockpit/cockpit.conf"
+chown root: "/etc/cockpit/cockpit.conf"
 
 #=================================================
-# INTEGRATE SERVICE IN YUNOHOST
+# SYSTEM CONFIGURATION
 #=================================================
-ynh_script_progression "Integrating service in YunoHost..."
+ynh_script_progression "Adding system configurations related to $app..."
 
-yunohost service add $app --description="Sysadmin login session in a web browser" --log="/var/log/$app/$app.log"
+ynh_config_add_nginx
+
+yunohost service add $app --description="Sysadmin login session in a web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-# Start a systemd service
 ynh_systemctl --service=$app --action="restart" --log_path="systemd"
 
 #=================================================
