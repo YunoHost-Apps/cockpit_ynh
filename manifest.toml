@@ -18,7 +18,7 @@ admindoc = "https://cockpit-project.org/documentation.html"
 code = "https://github.com/cockpit-project/cockpit"
 
 [integration]
-yunohost = ">= 12.0.9"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -26,9 +26,9 @@ multi_instance = false
 ldap = false
 sso = false
 
-disk = "50M"
+disk = "150M"
 ram.build = "50M"
-ram.runtime = "50M"
+ram.runtime = "150M"
 
 [install]
     [install.domain]

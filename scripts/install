@@ -29,7 +29,7 @@ ynh_script_progression "Adding system configurations related to $app..."
 
 ynh_config_add_nginx
 
-yunohost service add $app --description="Sysadmin login session in a web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Sysadmin login session in a Web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
