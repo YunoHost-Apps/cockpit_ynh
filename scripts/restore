@@ -3,29 +3,33 @@
 source /usr/share/yunohost/helpers
 
 #=================================================
-# RESTORE VARIOUS FILES
-#=================================================
-ynh_script_progression "Fixing up permissions..."
-
-usermod -a -G cockpit cockpit-ws
-usermod -a -G cockpit cockpit-wsinstance
-
-ynh_script_progression "Restoring various files..."
-
-ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
-systemctl daemon-reload
-systemctl restart $app.socket
-
-ynh_restore "/etc/cockpit/cockpit.conf"
-
-#=================================================
-# RESTORE SYSTEM CONFIGURATIONS
+# RESTORE SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression "Restoring system configurations related to $app..."
 
 ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-yunohost service add $app --description="Sysadmin login session in a web browser" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Sysadmin login session in a Web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
+
+#=================================================
+# RESTORE VARIOUS FILES
+#=================================================
+
+port=$(ynh_app_setting_get --key=port)
+ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
+systemctl daemon-reload
+systemctl restart $app.socket
+
+ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+chmod 644 "/etc/cockpit/cockpit.conf"
+
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
+then
+	chown root:$app "/etc/cockpit/cockpit.conf"
+
+	usermod -a -G cockpit cockpit-ws
+	usermod -a -G cockpit cockpit-wsinstance
+fi
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE

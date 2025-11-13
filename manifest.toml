@@ -7,9 +7,9 @@ name = "Cockpit"
 description.en = "Sysadmin login session in a Web browser"
 description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
-version = "337~ynh1"
+version = "337~ynh2"
 
-maintainers = []
+maintainers = ["ewilly"]
 
 [upstream]
 license = "LGPL-2.1-only"
@@ -18,7 +18,7 @@ admindoc = "https://cockpit-project.org/documentation.html"
 code = "https://github.com/cockpit-project/cockpit"
 
 [integration]
-yunohost = ">= 12.0.9"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -26,9 +26,9 @@ multi_instance = false
 ldap = false
 sso = false
 
-disk = "50M"
+disk = "150M"
 ram.build = "50M"
-ram.runtime = "50M"
+ram.runtime = "150M"
 
 [install]
     [install.domain]
@@ -54,7 +54,6 @@ ram.runtime = "50M"
 
     [resources.ports]
     main.default = 9090
-    main.fixed = true
 
     [resources.apt]
     packages = ["cockpit", "cockpit-bridge"]

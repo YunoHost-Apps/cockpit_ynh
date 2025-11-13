@@ -10,32 +10,33 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 
 #=================================================
-# REAPPLY SYSTEM CONFIGURATIONS
-#=================================================
-ynh_script_progression "Upgrading system configurations related to $app..."
-
-ynh_config_add_nginx
-
-yunohost service add $app --description="Sysadmin login session in a web browser" --log="/var/log/$app/$app.log"
-
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression "Fixing up permissions..."
-
-usermod -a -G cockpit cockpit-ws
-usermod -a -G cockpit cockpit-wsinstance
-
-ynh_script_progression "Updating configuration..."
+ynh_script_progression "Updating $app's configuration files..."
 
 ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
 systemctl daemon-reload
 systemctl restart $app.socket
 
 ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+chmod 644 "/etc/cockpit/cockpit.conf"
 
-chmod 650 "/etc/cockpit/cockpit.conf"
-chown root:$app "/etc/cockpit/cockpit.conf"
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
+then
+	chown root:$app "/etc/cockpit/cockpit.conf"
+
+	usermod -a -G cockpit cockpit-ws
+	usermod -a -G cockpit cockpit-wsinstance
+fi
+
+#=================================================
+# REAPPLY SYSTEM CONFIGURATION
+#=================================================
+ynh_script_progression "Upgrading system configurations related to $app..."
+
+ynh_config_add_nginx
+
+yunohost service add $app --description="Sysadmin login session in a Web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
