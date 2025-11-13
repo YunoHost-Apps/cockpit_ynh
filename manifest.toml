@@ -9,7 +9,7 @@ description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
 version = "337~ynh2"
 
-maintainers = []
+maintainers = ["ewilly"]
 
 [upstream]
 license = "LGPL-2.1-only"
