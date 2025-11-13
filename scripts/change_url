@@ -22,6 +22,13 @@ ynh_config_change_url_nginx
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+chmod 644 "/etc/cockpit/cockpit.conf"
+
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
+then
+	chown root:$app "/etc/cockpit/cockpit.conf"
+fi
+
 
 #=================================================
 # START SYSTEMD SERVICE

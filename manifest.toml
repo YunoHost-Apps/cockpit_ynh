@@ -9,7 +9,7 @@ description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
 version = "337~ynh2"
 
-maintainers = []
+maintainers = ["ewilly"]
 
 [upstream]
 license = "LGPL-2.1-only"
@@ -54,7 +54,6 @@ ram.runtime = "150M"
 
     [resources.ports]
     main.default = 9090
-    main.fixed = true
 
     [resources.apt]
     packages = ["cockpit", "cockpit-bridge"]

@@ -15,17 +15,21 @@ yunohost service add $app --description="Sysadmin login session in a Web browser
 # RESTORE VARIOUS FILES
 #=================================================
 
+port=$(ynh_app_setting_get --key=port)
+ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
+systemctl daemon-reload
+systemctl restart $app.socket
+
+ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+chmod 644 "/etc/cockpit/cockpit.conf"
+
 if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
 then
+	chown root:$app "/etc/cockpit/cockpit.conf"
+
 	usermod -a -G cockpit cockpit-ws
 	usermod -a -G cockpit cockpit-wsinstance
-
-	ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
-	systemctl daemon-reload
-	systemctl restart $app.socket
 fi
-
-ynh_restore "/etc/cockpit/cockpit.conf"
 
 #=================================================
 # RELOAD NGINX AND PHP-FPM OR THE APP SERVICE

@@ -14,20 +14,20 @@ ynh_systemctl --service=$app --action="stop" --log_path="systemd"
 #=================================================
 ynh_script_progression "Updating $app's configuration files..."
 
-if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
-then
-	usermod -a -G cockpit cockpit-ws
-	usermod -a -G cockpit cockpit-wsinstance
-
-	ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
-	systemctl daemon-reload
-	systemctl restart $app.socket
-fi
+ynh_replace --match="ListenStream=.*" --replace="ListenStream=$port" --file="/lib/systemd/system/cockpit.socket"
+systemctl daemon-reload
+systemctl restart $app.socket
 
 ynh_config_add --template="cockpit.conf" --destination="/etc/cockpit/cockpit.conf"
+chmod 644 "/etc/cockpit/cockpit.conf"
 
-chmod 640 "/etc/cockpit/cockpit.conf"
-chown root: "/etc/cockpit/cockpit.conf"
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]
+then
+	chown root:$app "/etc/cockpit/cockpit.conf"
+
+	usermod -a -G cockpit cockpit-ws
+	usermod -a -G cockpit cockpit-wsinstance
+fi
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATION
