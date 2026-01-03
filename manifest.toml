@@ -7,7 +7,7 @@ name = "Cockpit"
 description.en = "Sysadmin login session in a Web browser"
 description.fr = "Session de connexion sysadmin dans un navigateur Web"
 
-version = "337~ynh2"
+version = "337~ynh3"
 
 maintainers = ["ewilly"]
 
@@ -18,7 +18,7 @@ admindoc = "https://cockpit-project.org/documentation.html"
 code = "https://github.com/cockpit-project/cockpit"
 
 [integration]
-yunohost = ">= 12.1.17"
+yunohost = ">= 12.1.38"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
