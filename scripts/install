@@ -35,12 +35,9 @@ yunohost service add $app --description="Sysadmin login session in a Web browser
 # TODO: DEBUG
 #=================================================
 ynh_script_progression "Debuging $app's systemd service..."
-systemctl --failed
-systemctl status cockpit.socket
-journalctl -xeu cockpit.socket
+systemctl start cockpit-wsinstance-http.socket
 systemctl status cockpit-wsinstance-http.socket
 systemctl status cockpit-wsinstance-https-factory.socket
-cat /etc/nsswitch.conf
 
 #=================================================
 # START SYSTEMD SERVICE
