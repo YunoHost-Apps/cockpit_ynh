@@ -35,8 +35,8 @@ yunohost service add $app --description="Sysadmin login session in a Web browser
 # TODO: DEBUG
 #=================================================
 ynh_script_progression "Debuging $app's systemd service..."
-less /etc/passwd | grep cockpit
-less /etc/group | grep cockpit
+cat /etc/passwd | grep cockpit
+cat /etc/group | grep cockpit
 
 
 systemctl start cockpit-wsinstance-socket-user.service
