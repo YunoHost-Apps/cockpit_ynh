@@ -38,6 +38,8 @@ ynh_script_progression "Debuging $app's systemd service..."
 systemctl --failed
 systemctl status cockpit.socket
 journalctl -xeu cockpit.socket
+systemctl status cockpit-wsinstance-http.socket
+systemctl status cockpit-wsinstance-https-factory.socket
 cat /etc/nsswitch.conf
 
 #=================================================
@@ -46,14 +48,6 @@ cat /etc/nsswitch.conf
 ynh_script_progression "Starting $app's systemd service..."
 
 ynh_systemctl --service=$app --action="restart" --log_path="systemd"
-
-#=================================================
-# TODO: DEBUG
-#=================================================
-ynh_script_progression "Debuging $app's systemd service..."
-systemctl --failed
-systemctl status cockpit.socket
-journalctl -xeu cockpit.socket
 
 #=================================================
 # END OF SCRIPT
