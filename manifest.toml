@@ -56,4 +56,4 @@ ram.runtime = "150M"
     main.default = 9090
 
     [resources.apt]
-    packages = ["cockpit"]
+    packages = ["cockpit","dbus-user-session","libduktape207","libglib2.0-data","polkitd","sgml-base","shared-mime-info","xml-core"]
