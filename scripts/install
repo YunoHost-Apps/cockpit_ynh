@@ -36,7 +36,7 @@ yunohost service add $app --description="Sysadmin login session in a Web browser
 #=================================================
 ynh_script_progression "Debuging $app's systemd service..."
 systemctl --failed
-systemct status cockpit.socket
+systemctl status cockpit.socket
 journalctl -xeu cockpit.socket
 cat /etc/nsswitch.conf
 
@@ -52,7 +52,7 @@ ynh_systemctl --service=$app --action="restart" --log_path="systemd"
 #=================================================
 ynh_script_progression "Debuging $app's systemd service..."
 systemctl --failed
-systemct status cockpit.socket
+systemctl status cockpit.socket
 journalctl -xeu cockpit.socket
 
 #=================================================
