@@ -56,4 +56,4 @@ ram.runtime = "150M"
     main.default = 9090
 
     [resources.apt]
-    packages = ["cockpit", "cockpit-bridge"]
+    packages = ["cockpit"]

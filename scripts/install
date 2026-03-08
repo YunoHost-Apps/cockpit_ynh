@@ -32,11 +32,28 @@ ynh_config_add_nginx
 yunohost service add $app --description="Sysadmin login session in a Web browser" --test_status="systemctl is-active $app.socket" --log="/var/log/$app/$app.log"
 
 #=================================================
+# TODO: DEBUG
+#=================================================
+ynh_script_progression "Debuging $app's systemd service..."
+systemctl --failed
+systemct status cockpit.socket
+journalctl -xeu cockpit.socket
+cat /etc/nsswitch.conf
+
+#=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
 ynh_systemctl --service=$app --action="restart" --log_path="systemd"
+
+#=================================================
+# TODO: DEBUG
+#=================================================
+ynh_script_progression "Debuging $app's systemd service..."
+systemctl --failed
+systemct status cockpit.socket
+journalctl -xeu cockpit.socket
 
 #=================================================
 # END OF SCRIPT
