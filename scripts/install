@@ -45,7 +45,9 @@ getent passwd cockpit-wsinstance-socket
 mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
 cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
 [Service]
-DynamicUser=
+DynamicUser=no
+User=cockpit-wsinstance-socket
+Group=cockpit-wsinstance-socket
 EOF
 cat /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
 
