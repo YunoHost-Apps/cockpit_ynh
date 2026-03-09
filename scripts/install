@@ -48,16 +48,17 @@ for f in /usr/lib/systemd/system/cockpit*; do
 		# Récupérer User= si présent
 			user=$(grep -E '^User=' "$f" | head -n1 | cut -d= -f2-)
 			if [ -n "$user" ]; then
-				getent passwd "$user" >/dev/null || adduser --system --group "$user"
+				ynh_system_user_exists --username="$user" || ynh_system_user_create --username="$user"
 			fi
+
 		# Récupérer Group= si présent
 			group=$(grep -E '^Group=' "$f" | head -n1 | cut -d= -f2-)
 			if [ -n "$group" ]; then
-				getent group "$group" >/dev/null || addgroup --system "$group"
+				ynh_system_group_exists --group=$group  || ynh_system_user_create --username="$user"
 			fi
 
 		# Modifier DynamicUser=yes → DynamicUser=no
-			sed -i 's/DynamicUser=yes/DynamicUser=no/' "$f"
+			ynh_replace --match="DynamicUser=yes" --replace="DynamicUser=no" --file="$f"
 	fi
 done
 systemctl daemon-reload
