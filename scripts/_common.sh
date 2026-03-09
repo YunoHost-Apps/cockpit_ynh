@@ -54,8 +54,11 @@ test_dynamicuser() {
 	# If systemd-run returned 0 AND the unit finished in "exited",
 	# DynamicUser is working properly inside this LXC container.
 	if [[ "$rc" -eq 0 && "$state" == "exited" ]]; then
+		echo -e "\n🟢 DynamicUser is working through a systemd service!"
 		return 1
 	else
+		echo -e "\n🔴 DynamicUser is NOT working through a systemd service."
+		echo "This confirms that the container is blocking DynamicUser=yes."
 		return 0
 	fi
 }
