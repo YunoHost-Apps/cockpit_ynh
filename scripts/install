@@ -38,23 +38,30 @@ ynh_script_progression "Debuging $app's systemd service..."
 # cat /etc/passwd | grep cockpit
 # cat /etc/group | grep cockpit
 
-systemctl cat cockpit-wsinstance-socket-user.service
-
-adduser --system --group cockpit-wsinstance-socket
-getent passwd cockpit-wsinstance-socket
+# utilisateur de service
+getent passwd cockpit-wsinstance-socket >/dev/null || adduser --system --group cockpit-wsinstance-socket
 mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
 cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
 [Service]
 DynamicUser=no
-User=cockpit-wsinstance-socket
-Group=cockpit-wsinstance-socket
 EOF
 cat /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
 
-systemctl daemon-reload
-systemctl cat cockpit-wsinstance-socket-user.service
-systemctl status cockpit-wsinstance-socket-user.service -l
-journalctl -xeu cockpit-wsinstance-socket-user.service
+
+# utilisateur de service
+getent passwd cockpit-systemd-service >/dev/null || adduser --system --group cockpit-systemd-service
+getent group cockpit-wsinstance-socket >/dev/null || addgroup --system cockpit-wsinstance-socket
+mkdir -p /usr/lib/systemd/system/cockpit.service.d
+cat << 'EOF' > /usr/lib/systemd/system/cockpit.service.d/override.conf
+[Service]
+DynamicUser=no
+EOF
+
+
+# systemctl daemon-reload
+# systemctl cat cockpit-wsinstance-socket-user.service
+# systemctl status cockpit-wsinstance-socket-user.service -l
+# journalctl -xeu cockpit-wsinstance-socket-user.service
 
 #=================================================
 # START SYSTEMD SERVICE
