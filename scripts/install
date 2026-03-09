@@ -35,28 +35,52 @@ yunohost service add $app --description="Sysadmin login session in a Web browser
 # TODO: DEBUG
 #=================================================
 ynh_script_progression "Debuging $app's systemd service..."
-# cat /etc/passwd | grep cockpit
-# cat /etc/group | grep cockpit
 
-# utilisateur de service
-getent passwd cockpit-wsinstance-socket >/dev/null || adduser --system --group cockpit-wsinstance-socket
-mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
-cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
-[Service]
-DynamicUser=no
-EOF
-cat /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
+# grep -R "DynamicUser=yes" /usr/lib/systemd/system/cockpit*
+# /usr/lib/systemd/system/cockpit.service:DynamicUser=yes
+# /usr/lib/systemd/system/cockpit-session-socket-user.service:DynamicUser=yes
+# /usr/lib/systemd/system/cockpit-wsinstance-http.service:DynamicUser=yes
+# /usr/lib/systemd/system/cockpit-wsinstance-https@.service:DynamicUser=yes
+# /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service:DynamicUser=yes
 
-
-# utilisateur de service
 getent passwd cockpit-systemd-service >/dev/null || adduser --system --group cockpit-systemd-service
-getent group cockpit-wsinstance-socket >/dev/null || addgroup --system cockpit-wsinstance-socket
+getent passwd cockpit-wsinstance-socket >/dev/null || adduser --system --group cockpit-wsinstance-socket
+getent passwd cockpit-session-socket >/dev/null || adduser --system --group cockpit-session-socket
+
+# /usr/lib/systemd/system/cockpit.service:DynamicUser=yes
+# User=cockpit-systemd-service
+# Group=cockpit-wsinstance-socket
 mkdir -p /usr/lib/systemd/system/cockpit.service.d
 cat << 'EOF' > /usr/lib/systemd/system/cockpit.service.d/override.conf
 [Service]
 DynamicUser=no
 EOF
 
+# /usr/lib/systemd/system/cockpit-session-socket-user.service:DynamicUser=yes
+# User=cockpit-session-socket
+# Group=cockpit-session-socket
+mkdir -p /usr/lib/systemd/system/cockpit-session-socket-user.service.d
+cat << 'EOF' > /usr/lib/systemd/system/cockpit-session-socket-user.service.d/override.conf
+[Service]
+DynamicUser=no
+EOF
+
+# /usr/lib/systemd/system/cockpit-wsinstance-https@.service:DynamicUser=yes
+# Group=cockpit-session-socket
+mkdir -p /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d
+cat << 'EOF' > /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d/override.conf
+[Service]
+DynamicUser=no
+EOF
+
+# /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service:DynamicUser=yes
+# User=cockpit-wsinstance-socket
+# Group=cockpit-wsinstance-socket
+mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
+cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
+[Service]
+DynamicUser=no
+EOF
 
 # systemctl daemon-reload
 # systemctl cat cockpit-wsinstance-socket-user.service
