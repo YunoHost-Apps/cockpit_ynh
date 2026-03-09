@@ -43,6 +43,8 @@ journalctl -xe
 
 cat /run/systemd/system/service.d/zzz-lxc-service.conf
 
+systemctl cat cockpit-wsinstance-socket-user.service
+
 #systemctl status cockpit-wsinstance-socket-user.service
 
 cat /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service
