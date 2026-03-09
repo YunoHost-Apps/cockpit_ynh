@@ -82,7 +82,7 @@ cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/over
 DynamicUser=no
 EOF
 
-# systemctl daemon-reload
+systemctl daemon-reload
 # systemctl cat cockpit-wsinstance-socket-user.service
 # systemctl status cockpit-wsinstance-socket-user.service -l
 # journalctl -xeu cockpit-wsinstance-socket-user.service
