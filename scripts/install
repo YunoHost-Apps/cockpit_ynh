@@ -45,7 +45,7 @@ cat /run/systemd/system/service.d/zzz-lxc-service.conf
 
 systemctl cat cockpit-wsinstance-socket-user.service
 
-#systemctl status cockpit-wsinstance-socket-user.service
+systemctl status cockpit-wsinstance-socket-user.service -l
 
 cat /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service
 ynh_systemctl --service=cockpit-wsinstance-socket-user.service --action="restart" --log_path="systemd"
