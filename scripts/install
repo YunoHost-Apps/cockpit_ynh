@@ -43,46 +43,66 @@ ynh_script_progression "Debuging $app's systemd service..."
 # /usr/lib/systemd/system/cockpit-wsinstance-https@.service:DynamicUser=yes
 # /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service:DynamicUser=yes
 
-getent passwd cockpit-systemd-service >/dev/null || adduser --system --group cockpit-systemd-service
-getent passwd cockpit-wsinstance-socket >/dev/null || adduser --system --group cockpit-wsinstance-socket
-getent passwd cockpit-session-socket >/dev/null || adduser --system --group cockpit-session-socket
+for f in /usr/lib/systemd/system/cockpit*; do
+	if grep -q 'DynamicUser=yes' "$f"; then
+		# Récupérer User= si présent
+			user=$(grep -E '^User=' "$f" | head -n1 | cut -d= -f2-)
+			if [ -n "$user" ]; then
+				getent passwd "$user" >/dev/null || adduser --system --group "$user"
+			fi
+		# Récupérer Group= si présent
+			group=$(grep -E '^Group=' "$f" | head -n1 | cut -d= -f2-)
+			if [ -n "$group" ]; then
+				getent group "$group" >/dev/null || addgroup --system "$group"
+			fi
 
-# /usr/lib/systemd/system/cockpit.service:DynamicUser=yes
-# User=cockpit-systemd-service
-# Group=cockpit-wsinstance-socket
-mkdir -p /usr/lib/systemd/system/cockpit.service.d
-cat << 'EOF' > /usr/lib/systemd/system/cockpit.service.d/override.conf
-[Service]
-DynamicUser=no
-EOF
-
-# /usr/lib/systemd/system/cockpit-session-socket-user.service:DynamicUser=yes
-# User=cockpit-session-socket
-# Group=cockpit-session-socket
-mkdir -p /usr/lib/systemd/system/cockpit-session-socket-user.service.d
-cat << 'EOF' > /usr/lib/systemd/system/cockpit-session-socket-user.service.d/override.conf
-[Service]
-DynamicUser=no
-EOF
-
-# /usr/lib/systemd/system/cockpit-wsinstance-https@.service:DynamicUser=yes
-# Group=cockpit-session-socket
-mkdir -p /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d
-cat << 'EOF' > /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d/override.conf
-[Service]
-DynamicUser=no
-EOF
-
-# /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service:DynamicUser=yes
-# User=cockpit-wsinstance-socket
-# Group=cockpit-wsinstance-socket
-mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
-cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
-[Service]
-DynamicUser=no
-EOF
-
+		# Modifier DynamicUser=yes → DynamicUser=no
+			sed -i 's/DynamicUser=yes/DynamicUser=no/' "$f"
+	fi
+done
 systemctl daemon-reload
+#
+#
+# getent passwd cockpit-systemd-service >/dev/null || adduser --system --group cockpit-systemd-service
+# getent passwd cockpit-wsinstance-socket >/dev/null || adduser --system --group cockpit-wsinstance-socket
+# getent passwd cockpit-session-socket >/dev/null || adduser --system --group cockpit-session-socket
+#
+# # /usr/lib/systemd/system/cockpit.service:DynamicUser=yes
+# # User=cockpit-systemd-service
+# # Group=cockpit-wsinstance-socket
+# mkdir -p /usr/lib/systemd/system/cockpit.service.d
+# cat << 'EOF' > /usr/lib/systemd/system/cockpit.service.d/override.conf
+# [Service]
+# DynamicUser=no
+# EOF
+#
+# # /usr/lib/systemd/system/cockpit-session-socket-user.service:DynamicUser=yes
+# # User=cockpit-session-socket
+# # Group=cockpit-session-socket
+# mkdir -p /usr/lib/systemd/system/cockpit-session-socket-user.service.d
+# cat << 'EOF' > /usr/lib/systemd/system/cockpit-session-socket-user.service.d/override.conf
+# [Service]
+# DynamicUser=no
+# EOF
+#
+# # /usr/lib/systemd/system/cockpit-wsinstance-https@.service:DynamicUser=yes
+# # Group=cockpit-session-socket
+# mkdir -p /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d
+# cat << 'EOF' > /usr/lib/systemd/system/cockpit-wsinstance-https@.service.d/override.conf
+# [Service]
+# DynamicUser=no
+# EOF
+#
+# # /usr/lib/systemd/system/cockpit-wsinstance-socket-user.service:DynamicUser=yes
+# # User=cockpit-wsinstance-socket
+# # Group=cockpit-wsinstance-socket
+# mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
+# cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
+# [Service]
+# DynamicUser=no
+# EOF
+#
+# systemctl daemon-reload
 # systemctl cat cockpit-wsinstance-socket-user.service
 # systemctl status cockpit-wsinstance-socket-user.service -l
 # journalctl -xeu cockpit-wsinstance-socket-user.service
