@@ -38,12 +38,18 @@ ynh_script_progression "Debuging $app's systemd service..."
 # cat /etc/passwd | grep cockpit
 # cat /etc/group | grep cockpit
 
-systemd-run --property=DynamicUser=yes /usr/bin/true
-journalctl -xe
+#systemctl cat cockpit-wsinstance-socket-user.service
 
-cat /run/systemd/system/service.d/zzz-lxc-service.conf
+adduser --system --group cockpit-wsinstance-socket
+getent passwd cockpit-wsinstance-socket
+mkdir -p /etc/systemd/system/cockpit-wsinstance-socket-user.service.d
+cat << 'EOF' > /etc/systemd/system/cockpit-wsinstance-socket-user.service.d/override.conf
+[Service]
+DynamicUser=
+EOF
+systemctl daemon-reload
+systemctl start cockpit-wsinstance-socket-user.service
 
-systemctl cat cockpit-wsinstance-socket-user.service
 
 systemctl status cockpit-wsinstance-socket-user.service -l
 
