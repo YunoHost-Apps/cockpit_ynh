@@ -22,8 +22,8 @@ then
 	usermod -a -G cockpit cockpit-wsinstance
 fi
 
-if [[ $YNH_DEBIAN_VERSION == "trixie" && ynh_in_ci_tests ]] ; then
-	myynh_fix_ci
+if [[ $YNH_DEBIAN_VERSION == "trixie" ]] ; then
+	myynh_handle_dynamicuser
 fi
 
 #=================================================
