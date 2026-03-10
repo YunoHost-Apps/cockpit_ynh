@@ -104,3 +104,28 @@ is_dynamicuser_supported() {
 		return 1   # NOT OK
 	fi
 }
+
+# Remove old users of cockpit (starting with cockpit-*)
+myynh_remove_old_cockpit_users() {
+	# Load all /etc/passwd entries into an array
+	# Each entry is of the form: user:passwd:uid:gid:comment:home:shell
+	local users=()
+	while read -r line
+	do
+		 users+=("$line")
+	done < /etc/passwd
+
+	# Iterate through each user entry
+	for entry in "${users[@]}"
+	do
+		# Extract username (field 1)
+		local username
+		username=$(echo "$entry" | cut -d: -f1)
+
+		# Check if username begins with "cockpit-"
+		if [[ "$username" =~ ^cockpit- ]]
+		then
+			ynh_system_user_delete --username="$username"
+		fi
+	done
+}
