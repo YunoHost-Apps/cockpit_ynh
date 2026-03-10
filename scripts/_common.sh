@@ -26,7 +26,7 @@ myynh_handle_dynamicuser() {
 	then
 		for f in /usr/lib/systemd/system/cockpit*
 		do
-			if grep -q '^DynamicUser=yes' "$f"
+			if grep -q '^DynamicUser=' "$f"
 			then
 
 				# Extract User= ; if present and missing, create the user and its group
