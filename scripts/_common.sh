@@ -22,7 +22,8 @@ myynh_handle_dynamicuser() {
 	}
 
 	# If DynamicUser is NOT supported → convert to system users
-	if ! is_dynamicuser_supported; then
+	if ! is_dynamicuser_supported
+	then
 		for f in /usr/lib/systemd/system/cockpit*
 		do
 			if grep -q '^DynamicUser=yes' "$f"
@@ -82,7 +83,10 @@ myynh_remove_non_dynamic_users() {
 		# Remove each created_users
 		for u in "${created_users[@]}"
 		do
-			[[ -n "$u" ]] && ynh_system_user_delete --username="$u"
+			if [[ -n "$u" ]] && ynh_system_user_exists --username="$u"
+			then
+				ynh_system_user_delete --username="$u"
+			fi
 		done
 			
 	fi
