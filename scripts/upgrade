@@ -29,13 +29,14 @@ then
 	usermod -a -G cockpit cockpit-wsinstance
 elif [[ $YNH_DEBIAN_VERSION == "trixie" ]]
 then
-	if ynh_app_upgrading_from_version_before 337~ynh5
+	if ynh_app_upgrading_from_version_before 337~ynh5 \
+	&& find /usr/lib/systemd/system/cockpit* -type f -print | xargs grep -q '^DynamicUser=yes'
 	then
-		ynh_system_user_delete --username="cockpit-ws"
-		ynh_system_user_delete --username="cockpit-wsinstance"
-		ynh_system_user_delete --username="cockpit-session-socket"
-		ynh_system_user_delete --username="cockpit-wsinstance-socket"
-		ynh_system_user_delete --username="cockpit-systemd-service"
+		delete_system_user --username="cockpit-ws"
+		delete_system_user --username="cockpit-wsinstance"
+		delete_system_user --username="cockpit-session-socket"
+		delete_system_user --username="cockpit-wsinstance-socket"
+		delete_system_user --username="cockpit-systemd-service"
 	fi
 	myynh_handle_dynamicuser
 fi

@@ -26,7 +26,7 @@ myynh_handle_dynamicuser() {
 	then
 		for f in /usr/lib/systemd/system/cockpit*
 		do
-			if grep -q '^DynamicUser=' "$f"
+			if grep -q '^DynamicUser=yes' "$f"
 			then
 
 				# Extract User= ; if present and missing, create the user and its group
@@ -85,7 +85,7 @@ myynh_remove_non_dynamic_users() {
 		do
 			if [[ -n "$u" ]] && ynh_system_user_exists --username="$u"
 			then
-				ynh_system_user_delete --username="$u"
+				delete_system_user --username="$u"
 			fi
 		done
 			
@@ -107,4 +107,29 @@ is_dynamicuser_supported() {
 		ynh_print_info "This confirms that the container is blocking DynamicUser=yes."
 		return 1   # NOT OK
 	fi
+}
+
+# Delete a system user
+# Fork of ynh_system_user_delete which is now deprecated and give a linter issue
+#
+# usage: delete_system_user --username=user_name
+# | arg: --username=    - Name of the system user that will be create
+delete_system_user() {
+    # ============ Argument parsing =============
+    local -A args_array=([u]=username=)
+    local username
+    ynh_handle_getopts_args "$@"
+    # ===========================================
+
+    # Check if the user exists on the system
+    if ynh_system_user_exists --username="$username"; then
+        deluser "$username"
+    else
+        ynh_print_warn "The user $username was not found"
+    fi
+
+    # Check if the group exists on the system
+    if ynh_system_group_exists --group="$username"; then
+        delgroup "$username"
+    fi
 }
