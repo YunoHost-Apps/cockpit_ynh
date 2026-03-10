@@ -29,6 +29,7 @@ then
 	usermod -a -G cockpit cockpit-wsinstance
 elif [[ $YNH_DEBIAN_VERSION == "trixie" ]]
 then
+	myynh_remove_old_cockpit_users
 	myynh_handle_dynamicuser
 fi
 
