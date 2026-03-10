@@ -6,7 +6,7 @@
 
 # YunoHost CI does not accept systemd DynamicUser
 # Convert DynamicUser=yes units into system users
-myynh_fix_dynamicuser() {
+myynh_handle_dynamicuser() {
 	declare -a created_users=()
 	declare -A created_users_set=()
 
