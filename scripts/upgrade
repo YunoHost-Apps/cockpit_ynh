@@ -29,7 +29,14 @@ then
 	usermod -a -G cockpit cockpit-wsinstance
 elif [[ $YNH_DEBIAN_VERSION == "trixie" ]]
 then
-	myynh_remove_old_cockpit_users
+	if ynh_app_upgrading_from_version_before 337~ynh5
+	then
+		ynh_system_user_delete --username="cockpit-ws"
+		ynh_system_user_delete --username="cockpit-wsinstance"
+		ynh_system_user_delete --username="cockpit-session-socket"
+		ynh_system_user_delete --username="cockpit-wsinstance-socket"
+		ynh_system_user_delete --username="cockpit-systemd-service"
+	fi
 	myynh_handle_dynamicuser
 fi
 
