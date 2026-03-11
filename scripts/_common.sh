@@ -5,61 +5,131 @@
 #=================================================
 
 # YunoHost CI does not accept systemd DynamicUser
-# In CI, we have to convert DynamicUser into real user
-myynh_fix_ci() {
-	# Check if DynamicUser is supported inside the container
-	if test_dynamicuser; then
-		for f in /usr/lib/systemd/system/cockpit*; do
-			if grep -q 'DynamicUser=yes' "$f"; then
+# Convert DynamicUser=yes units into system users
+myynh_handle_dynamicuser() {
+	declare -a created_users=()
+	declare -A created_users_set=()
+
+	# Helper ensuring uniqueness
+	add_user_unique() {
+		local u="$1"
+		[[ -z "$u" ]] && return
+		if [[ -z "${created_users_set[$u]+_}" ]]
+		then
+			created_users+=("$u")
+			created_users_set["$u"]=1
+		fi
+	}
+
+	# If DynamicUser is NOT supported → convert to system users
+	if ! is_dynamicuser_supported
+	then
+		for f in /usr/lib/systemd/system/cockpit*
+		do
+			if grep -q '^DynamicUser=yes' "$f"
+			then
+
 				# Extract User= ; if present and missing, create the user and its group
 				user=$(grep -E '^User=' "$f" | head -n1 | cut -d= -f2-)
-				if [ -n "$user" ]; then
-					ynh_system_user_exists --username="$user" || ynh_system_user_create --username="$user"
+				if [[ -n "$user" ]]
+				then
+					if ! ynh_system_user_exists --username="$user"
+					then
+						ynh_system_user_create --username="$user"
+						add_user_unique "$user"
+					fi
 				fi
 
 				# Extract Group= ; if present and missing, create the user/group
 				group=$(grep -E '^Group=' "$f" | head -n1 | cut -d= -f2-)
-				if [ -n "$group" ]; then
-					ynh_system_group_exists --group=$group  || ynh_system_user_create --username="$user"
+				if [[ -n "$group" ]]
+				then
+					if ! ynh_system_group_exists --group="$group"
+					then
+						ynh_system_user_create --username="$group"
+						add_user_unique "$group"
+					fi
 				fi
 
 				# Replace DynamicUser=yes → DynamicUser=no
-				ynh_replace --match="DynamicUser=yes" --replace="DynamicUser=no" --file="$f"
+				ynh_replace --match="^DynamicUser=yes" --replace="DynamicUser=no" --file="$f"
 			fi
 		done
 
 		# Reload systemd configuration after modifications
 		systemctl daemon-reload
+
+		# Store settings
+		ynh_app_setting_set --key=is_dynamicuser --value=0
+		dynamicusers=$(printf "%s;" "${created_users[@]}")
+		ynh_app_setting_set --key=dynamicusers --value="$dynamicusers"
+
+	else
+		ynh_app_setting_set --key=is_dynamicuser --value=1
+		ynh_app_setting_delete --key=dynamicusers
+		
+	fi
+}
+
+# In case of non working DynamicUser=yes, remove system users created
+myynh_remove_non_dynamic_users() {
+	if [[ "$(ynh_app_setting_get --key=is_dynamicuser)" == "0" ]]
+	then
+			
+		# Retrieve list and convert back to array
+		created_users=$(ynh_app_setting_get --key=dynamicusers)
+		IFS=';' read -r -a created_users <<< "$created_users"
+
+		# Remove each created_users
+		for u in "${created_users[@]}"
+		do
+			if [[ -n "$u" ]] && ynh_system_user_exists --username="$u"
+			then
+				delete_system_user --username="$u"
+			fi
+		done
+			
 	fi
 }
 
 # Check if DynamicUser is supported
-test_dynamicuser() {
-	# Launch a temporary systemd unit that uses DynamicUser=yes.
-	# If DynamicUser works inside this container, the command will run successfully.
-	systemd-run --unit test-dynamicuser --property DynamicUser=yes id >/dev/null 2>&1
-	local rc=$?
-
-	# Wait a bit because systemd creates the transient unit asynchronously.
-	sleep 0.2
-
-	# Query the systemd unit state (SubState=exited indicates success).
-	local state
-	state=$(systemctl show -p SubState --value test-dynamicuser 2>/dev/null)
-
-	# Clean up the temporary unit to avoid leaving traces.
-	systemctl stop test-dynamicuser >/dev/null 2>&1
-	systemctl reset-failed test-dynamicuser >/dev/null 2>&1
-
-	# If systemd-run returned 0 AND the unit finished in "exited",
-	# DynamicUser is working properly inside this LXC container.
-	if [[ "$rc" -eq 0 && "$state" == "exited" ]]; then
-		ynh_print_info "DynamicUser is working through a systemd service!"
-		return 1
+is_dynamicuser_supported() {
+	local unit_name="test-dynamicuser-$"
+	
+	if systemd-run --wait --quiet --unit "$unit_name" --property DynamicUser=yes /bin/true 2>/dev/null
+	then
+		systemctl reset-failed "$unit_name" >/dev/null 2>&1
+		ynh_print_info "DynamicUser is working through a systemd service."
+		return 0   # OK
 	else
-		ynh_print_info "DynamicUser is NOT working through a systemd service."
+		systemctl reset-failed "$unit_name" >/dev/null 2>&1
+		ynh_print_info "DynamicUser is NOT working through a systemd service!"
 		ynh_print_info "This confirms that the container is blocking DynamicUser=yes."
-		return 0
+		return 1   # NOT OK
 	fi
 }
 
+# Delete a system user
+# Fork of ynh_system_user_delete which is now deprecated and give a linter issue
+#
+# usage: delete_system_user --username=user_name
+# | arg: --username=    - Name of the system user that will be create
+delete_system_user() {
+    # ============ Argument parsing =============
+    local -A args_array=([u]=username=)
+    local username
+    ynh_handle_getopts_args "$@"
+    # ===========================================
+
+    # Check if the user exists on the system
+    if ynh_system_user_exists --username="$username"; then
+        deluser "$username"
+    else
+        ynh_print_warn "The user $username was not found"
+    fi
+
+    # Check if the group exists on the system
+    if ynh_system_group_exists --group="$username"; then
+        delgroup "$username"
+    fi
+}

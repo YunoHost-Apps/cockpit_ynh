@@ -27,10 +27,18 @@ then
 	chown root:$app "/etc/cockpit/cockpit.conf"
 	usermod -a -G cockpit cockpit-ws
 	usermod -a -G cockpit cockpit-wsinstance
-fi
-
-if [[ $YNH_DEBIAN_VERSION == "trixie" && ynh_in_ci_tests ]] ; then
-	myynh_fix_ci
+elif [[ $YNH_DEBIAN_VERSION == "trixie" ]]
+then
+	if ynh_app_upgrading_from_version_before 337~ynh5 \
+	&& find /usr/lib/systemd/system/cockpit* -type f -print | xargs grep -q '^DynamicUser=yes'
+	then
+		delete_system_user --username="cockpit-ws"
+		delete_system_user --username="cockpit-wsinstance"
+		delete_system_user --username="cockpit-session-socket"
+		delete_system_user --username="cockpit-wsinstance-socket"
+		delete_system_user --username="cockpit-systemd-service"
+	fi
+	myynh_handle_dynamicuser
 fi
 
 #=================================================
