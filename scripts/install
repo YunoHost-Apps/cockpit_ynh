@@ -20,10 +20,9 @@ then
 	chown root:$app "/etc/cockpit/cockpit.conf"
 	usermod -a -G cockpit cockpit-ws
 	usermod -a -G cockpit cockpit-wsinstance
-fi
-
-if [[ $YNH_DEBIAN_VERSION == "trixie" && ynh_in_ci_tests ]] ; then
-	myynh_fix_ci
+elif [[ $YNH_DEBIAN_VERSION == "trixie" ]]
+then
+	myynh_handle_dynamicuser
 fi
 
 #=================================================
